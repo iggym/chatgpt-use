@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Meteoric Rise of ChatGPT</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,">
+    
+    <!-- Google Fonts & Material Icons -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <style type="text/tailwindcss">
+        :root {
+            --electric-blue: #00FFFF;
+            --teal: #008080;
+            --magenta: #FF00FF;
+            --male-color: #00A9E0;
+            --female-color: #E6007E;
+            --chart-color-1: #00A9E0;
+            --chart-color-2: #38C6D1;
+            --chart-color-3: #8B48DA;
+        }
+        body {
+            font-family: "Space Grotesk", "Noto Sans", sans-serif;
+            background-color: #101623;
+            color: #ffffff;
+        }
+        
+        /* Animation Base Styles */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Section 2: Growth Chart Styles */
+        .chart-line {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            transition: stroke-dashoffset 2.5s ease-in-out;
+        }
+        .is-visible .chart-line {
+            stroke-dashoffset: 0;
+        }
+        .volume-bar {
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 1.5s ease-out;
+        }
+        .is-visible .volume-bar {
+            transform: scaleY(1);
+        }
+        .chart-marker {
+            opacity: 0;
+            transition: opacity 0.5s 2s ease-in-out;
+        }
+        .is-visible .chart-marker {
+            opacity: 1;
+        }
+        .chart-marker:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+        .tooltip {
+            visibility: hidden; opacity: 0; transition: opacity 0.2s, visibility 0.2s;
+        }
+
+        /* Section 3: Demographics */
+        .age-bar {
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 1.5s ease-out;
+        }
+        .is-visible .age-bar {
+            transform: scaleY(1);
+        }
+
+        /* Section 4: Unpacking Conversations */
+        .donut-work {
+            stroke-dasharray: 30, 100;
+            stroke-dashoffset: -70;
+            transition: stroke-dashoffset 1.5s 0.5s ease-in-out;
+        }
+        .donut-non-work {
+            stroke-dasharray: 70, 100;
+            transition: stroke-dashoffset 1.5s ease-in-out;
+        }
+        .is-visible .donut-work, .is-visible .donut-non-work {
+            stroke-dashoffset: 0;
+        }
+        .usage-bubble {
+            transform: scale(0);
+            transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .is-visible .usage-bubble:nth-child(1) { transform: scale(1); transition-delay: 0.2s; }
+        .is-visible .usage-bubble:nth-child(2) { transform: scale(1); transition-delay: 0.4s; }
+        .is-visible .usage-bubble:nth-child(3) { transform: scale(1); transition-delay: 0.6s; }
+
+        /* Section 5: Deeper Dive */
+        .use-case-card {
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        .use-case-card:hover {
+            transform: translateY(-5px);
+        }
+        .use-case-card.active {
+            border-color: var(--electric-blue);
+            transform: scale(1.05);
+        }
+
+        /* Section 6: Maturing User */
+        .timeline-item { transition-delay: calc(0.2s * var(--i)); }
+
+    </style>
+</head>
+<body class="bg-[#101623]">
+
+    <!-- SECTION 1: THE HOOK - A GLOBAL PHENOMENON -->
+    <section id="the-hook" class="min-h-screen flex flex-col justify-between group/design-root overflow-x-hidden">
+        <div class="flex-grow">
+            <div class="relative w-full h-[60vh] bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCUP3zyyPMw6Tec7fBrsHNOO6GOKnHDp0vDZHh3poeWpyvyg_1BFo6PJpN0yQa2nKzBLkMQ2E2zfQI9O2Ks2DvTEIuHLj8Kjryl1DyCt3kydpQoruES4NlATpLMfCSBgDye9XS3s4TxwFvRqowqH9i1xL42IyAjXVsgAxccKPYb0mUs8U6561OzgV0XmjPEcvZLfVZ2u2-_EnKa-j7s9VjQdywdkjr--MMfpa36PKy_B4gIOQmsfb5souEoMyH_hD6m-0GGE6aGtgM");'>
+                <div class="absolute inset-0 bg-gradient-to-t from-[#101623] via-[#101623]/50 to-transparent"></div>
+            </div>
+            <div class="p-6 relative z-10 -mt-16">
+                <div class="text-center mb-8 bg-[#1a233b]/50 backdrop-blur-sm p-4 rounded-xl border border-white/10 reveal">
+                    <h2 class="text-3xl lg:text-4xl font-bold text-white tracking-tighter">Explosive Global Growth</h2>
+                    <p class="text-lg text-[#90a4cb] mt-2">The rapid adoption of a new technology</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                    <div class="flex flex-col gap-4 rounded-xl p-6 bg-gradient-to-br from-[#222f49] to-[#1a233b] border border-white/10 shadow-lg reveal" style="transition-delay: 0.2s;">
+                        <div class="flex items-center gap-4">
+                            <span class="material-symbols-outlined text-4xl text-[#0d59f2]">group</span>
+                            <div>
+                                <p class="text-white text-lg font-bold leading-tight">700M+</p>
+                                <p class="text-[#90a4cb] text-sm font-normal leading-normal">Weekly Active Users</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-4 rounded-xl p-6 bg-gradient-to-br from-[#222f49] to-[#1a233b] border border-white/10 shadow-lg reveal" style="transition-delay: 0.4s;">
+                        <div class="flex flex-col gap-3">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-4xl text-teal-400">public</span>
+                                    <p class="text-white text-base font-medium leading-normal">Nearly 10% of the world's adult population</p>
+                                </div>
+                            </div>
+                            <div class="w-full bg-[#314368] rounded-full h-3"><div class="bg-teal-400 h-3 rounded-full" style="width: 10%;"></div></div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-4 rounded-xl p-6 bg-gradient-to-br from-[#222f49] to-[#1a233b] border border-white/10 shadow-lg reveal" style="transition-delay: 0.6s;">
+                        <div class="flex items-center gap-4">
+                            <span class="material-symbols-outlined text-4xl text-fuchsia-500">trending_up</span>
+                            <div>
+                                <p class="text-white text-lg font-bold leading-tight">4x Faster Growth</p>
+                                <p class="text-[#90a4cb] text-sm font-normal leading-normal">in lowest-income countries</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="p-6 text-center">
+            <p class="text-[#90a4cb] text-xs">Scroll to continue the story</p>
+            <span class="material-symbols-outlined text-[#90a4cb] animate-bounce mt-2">arrow_downward</span>
+        </footer>
+    </section>
+
+    <!-- SECTION 2: UNPRECEDENTED GROWTH STORY -->
+    <section id="growth-story" class="min-h-screen flex flex-col justify-center py-12 px-4 sm:px-6">
+        <div class="text-center reveal">
+            <h2 class="text-4xl font-bold leading-tight tracking-tight">The Rise of an AI Phenomenon</h2>
+            <p class="text-slate-400 text-lg font-normal leading-relaxed mt-4 max-w-3xl mx-auto">Explore the remarkable journey of ChatGPT, from its inception to becoming a global phenomenon. Witness its rapid user growth and the surge in daily message volume.</p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto mt-12 w-full">
+            <div class="p-6 rounded-lg bg-[#1a2233] reveal" style="transition-delay: 0.2s;">
+                <div class="flex flex-col gap-2">
+                    <p class="text-slate-300 text-lg font-medium leading-normal">Weekly Active Users (Consumer)</p>
+                    <div class="flex items-baseline gap-4">
+                        <p class="text-[40px] font-bold leading-tight tracking-tighter" style="color: var(--electric-blue);">700M+</p>
+                        <p class="text-teal-400 text-xl font-medium leading-normal">+600%</p>
+                    </div>
+                    <p class="text-slate-400 text-sm font-normal">Early 2024 - Mid 2025</p>
+                    <div class="relative mt-8">
+                        <svg fill="none" height="200" preserveAspectRatio="none" viewBox="0 0 472 150" width="100%" xmlns="http://www.w3.org/2000/svg">
+                            <path class="chart-line" d="M0 139C18.1538 139 18.1538 31 36.3077 31C54.4615 31 54.4615 51 72.6154 51C90.7692 51 90.7692 103 108.923 103C127.077 103 127.077 43 145.231 43C163.385 43 163.385 111 181.538 111C199.692 111 199.692 71 217.846 71C236 71 236 55 254.154 55C272.308 55 272.308 131 290.462 131C308.615 131 308.615 149 326.769 149C344.923 149 344.923 11 363.077 11C381.231 11 381.231 91 399.385 91C417.538 91 417.538 139 435.692 139C453.846 139 453.846 35 472 35" stroke="url(#paint0_linear_stroke)" stroke-linecap="round" stroke-width="3"></path>
+                            <defs><linearGradient gradientUnits="userSpaceOnUse" id="paint0_linear_stroke" x1="0" x2="472" y1="0" y2="0"><stop stop-color="#00FFFF"></stop><stop offset="1" stop-color="#FF00FF"></stop></linearGradient></defs>
+                        </svg>
+                        <div class="absolute w-3 h-3 rounded-full bg-[var(--electric-blue)] border-2 border-[#101623] cursor-pointer chart-marker" style="top: 20%; left: 8%;">
+                            <div class="tooltip absolute bg-[#222f49] text-white p-2 rounded text-xs whitespace-nowrap bottom-full left-1/2 -translate-x-1/2 -translate-y-2">100M Users (Early '24)</div>
+                        </div>
+                        <div class="absolute w-3 h-3 rounded-full bg-[var(--electric-blue)] border-2 border-[#101623] cursor-pointer chart-marker" style="top: 28%; left: 30%;">
+                           <div class="tooltip absolute bg-[#222f49] text-white p-2 rounded text-xs whitespace-nowrap bottom-full left-1/2 -translate-x-1/2 -translate-y-2">400M Users (Early '25)</div>
+                        </div>
+                        <div class="absolute w-3 h-3 rounded-full bg-[var(--magenta)] border-2 border-[#101623] cursor-pointer chart-marker" style="top: 92%; left: 68%;">
+                           <div class="tooltip absolute bg-[#222f49] text-white p-2 rounded text-xs whitespace-nowrap top-full left-1/2 -translate-x-1/2 translate-y-2">700M Users (Mid '25)</div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between mt-2 text-xs text-slate-400"><span>Jan '24</span><span>Jul '24</span><span>Jan '25</span><span>Jul '25</span></div>
+                </div>
+            </div>
+            <div class="p-6 rounded-lg bg-[#1a2233] reveal" style="transition-delay: 0.4s;">
+                 <div class="flex flex-col gap-2">
+                    <p class="text-slate-300 text-lg font-medium leading-normal">Daily Message Volume</p>
+                    <div class="flex items-baseline gap-4">
+                        <p class="text-[40px] font-bold leading-tight tracking-tighter" style="color: var(--teal);">2.6B</p>
+                        <p class="text-fuchsia-500 text-xl font-medium leading-normal" style="color: var(--magenta);">+475%</p>
+                    </div>
+                    <p class="text-slate-400 text-sm font-normal">June 2024 - June 2025</p>
+                    <div class="grid grid-cols-2 gap-4 items-end h-48 mt-8 px-2">
+                        <div class="volume-bar bg-gradient-to-t from-teal-500/50 to-teal-500 rounded-t-md" style="height: 18%; transition-delay: 0.2s;" title="451M"></div>
+                        <div class="volume-bar bg-gradient-to-t from-teal-500/50 to-teal-500 rounded-t-md" style="height: 100%; transition-delay: 0.4s;" title="2.6B"></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mt-2 text-xs text-slate-400 text-center px-2"><span>Jun '24</span><span>Jun '25</span></div>
+                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: CHANGING FACE OF THE USER -->
+    <section id="user-demographics" class="min-h-screen flex flex-col justify-center py-12 px-4 sm:px-6">
+        <div class="text-center reveal">
+            <h2 class="text-4xl font-bold leading-tight tracking-tight">The Changing Face of the User</h2>
+            <p class="text-slate-400 text-lg font-normal leading-relaxed mt-4 max-w-3xl mx-auto">From a niche, male-dominated audience to near gender parity, ChatGPT's user base has evolved significantly.</p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto mt-12 w-full">
+            <div class="p-6 rounded-lg bg-[#1a2233] reveal" style="transition-delay: 0.2s;">
+                <h3 class="text-white text-xl sm:text-2xl font-bold text-center">Gender Distribution Over Time</h3>
+                <div class="flex justify-center items-center my-8 space-x-6">
+                    <div class="flex flex-col items-center">
+                        <span class="material-symbols-outlined text-[var(--male-color)]" style="font-size: 48px;">male</span>
+                        <span id="male-percent" class="text-white text-lg font-bold"></span>
+                    </div>
+                    <div id="gender-pie" class="w-24 h-24 rounded-full flex items-center justify-center transition-all duration-500">
+                        <div class="w-[5.5rem] h-[5.5rem] bg-[#1a2233] rounded-full"></div>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <span class="material-symbols-outlined text-[var(--female-color)]" style="font-size: 48px;">female</span>
+                        <span id="female-percent" class="text-white text-lg font-bold"></span>
+                    </div>
+                </div>
+                 <div class="relative w-full p-4">
+                    <label class="text-white text-base font-medium leading-normal w-full text-center block" for="time-period-slider">Time Period: <span id="time-label" class="font-bold text-[#0d59f2]"></span></label>
+                    <input id="gender-slider" class="w-full h-2 bg-[#314368] rounded-lg appearance-none cursor-pointer accent-[#0d59f2] mt-4" type="range" min="0" max="2" value="2" step="1"/>
+                    <div class="flex justify-between w-full text-xs text-slate-400 mt-1">
+                        <span>Launch (Late '22)</span>
+                        <span>Jan '24</span>
+                        <span>Late '25</span>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 rounded-lg bg-[#1a2233] reveal" style="transition-delay: 0.4s;">
+                <h3 class="text-white text-xl sm:text-2xl font-bold text-center">Age Breakdown</h3>
+                <div class="flex items-end h-48 gap-4 px-2 mt-8">
+                    <div class="flex flex-col items-center justify-end h-full flex-1 gap-2">
+                        <div class="age-bar w-full bg-teal-400 rounded-t-md" style="height: 46%; transition-delay: 0.2s;"></div>
+                        <p class="text-slate-300 text-xs font-medium text-center">18-25</p>
+                    </div>
+                    <div class="flex flex-col items-center justify-end h-full flex-1 gap-2">
+                        <div class="age-bar w-full bg-teal-400 rounded-t-md" style="height: 28%; transition-delay: 0.4s;"></div>
+                        <p class="text-slate-300 text-xs font-medium text-center">25-34</p>
+                    </div>
+                    <div class="flex flex-col items-center justify-end h-full flex-1 gap-2">
+                        <div class="age-bar w-full bg-teal-400 rounded-t-md" style="height: 20%; transition-delay: 0.6s;"></div>
+                        <p class="text-slate-300 text-xs font-medium text-center">35-44</p>
+                    </div>
+                     <div class="flex flex-col items-center justify-end h-full flex-1 gap-2">
+                        <div class="age-bar w-full bg-teal-400 rounded-t-md" style="height: 6%; transition-delay: 0.8s;"></div>
+                        <p class="text-slate-300 text-xs font-medium text-center">45+</p>
+                    </div>
+                </div>
+                <p class="text-center text-slate-400 text-sm mt-4">A significant portion of the user base (46%) is aged between 18 and 25.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: UNPACKING THE CONVERSATIONS -->
+    <section id="conversations" class="min-h-screen flex flex-col justify-center py-12 px-4 sm:px-6 bg-[#1a2233]">
+        <div class="text-center reveal">
+            <h1 class="text-4xl font-bold tracking-tighter leading-tight pb-2">Unpacking the Conversations</h1>
+            <p class="text-base font-normal leading-relaxed text-[#90a4cb] max-w-3xl mx-auto">Three-quarters of conversations center on practical guidance, seeking information, and writing. Non-work related tasks are on the rise.</p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto mt-12 w-full">
+            <div class="reveal" style="transition-delay: 0.2s;">
+                 <h2 class="text-2xl font-bold mb-6 text-center">Primary Usage Patterns</h2>
+                <div class="relative w-full h-80 flex items-center justify-center">
+                    <div class="usage-bubble absolute w-64 h-64 rounded-full bg-[var(--chart-color-1)] opacity-80 flex items-center justify-center -translate-x-16 -translate-y-8">
+                        <div class="text-center"><p class="text-lg font-bold">Asking</p><p class="text-4xl font-black">49%</p></div>
+                    </div>
+                    <div class="usage-bubble absolute w-56 h-56 rounded-full bg-[var(--chart-color-2)] opacity-80 flex items-center justify-center translate-x-12 translate-y-4">
+                        <div class="text-center"><p class="text-lg font-bold">Doing</p><p class="text-4xl font-black">40%</p></div>
+                    </div>
+                    <div class="usage-bubble absolute w-32 h-32 rounded-full bg-[var(--chart-color-3)] opacity-80 flex items-center justify-center translate-y-24">
+                        <div class="text-center"><p class="text-md font-bold">Expressing</p><p class="text-2xl font-black">11%</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="reveal" style="transition-delay: 0.4s;">
+                <h2 class="text-2xl font-bold mb-6 text-center">Work vs. Non-Work Usage</h2>
+                <div class="flex items-center justify-center">
+                    <div class="relative w-64 h-64">
+                        <svg class="w-full h-full" viewBox="0 0 36 36">
+                            <path class="stroke-current text-[#101623]" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="3"></path>
+                            <path class="donut-non-work stroke-current text-[var(--chart-color-2)]" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-linecap="round" stroke-width="3"></path>
+                            <path class="donut-work stroke-current text-[var(--chart-color-3)]" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-linecap="round" stroke-width="3"></path>
+                        </svg>
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
+                            <p class="text-4xl font-black">70%</p>
+                            <p class="text-lg font-bold text-[#90a4cb]">Non-Work</p>
+                        </div>
+                    </div>
+                </div>
+                 <div class="flex justify-center gap-8 mt-4">
+                    <div class="flex items-center gap-2"><div class="w-4 h-4 rounded-full bg-[var(--chart-color-2)]"></div><div><p class="font-medium">Non-Work</p><p class="text-sm text-[#90a4cb]">70%</p></div></div>
+                    <div class="flex items-center gap-2"><div class="w-4 h-4 rounded-full bg-[var(--chart-color-3)]"></div><div><p class="font-medium">Work</p><p class="text-sm text-[#90a4cb]">30%</p></div></div>
+                </div>
+                <p class="text-center text-sm text-[#90a4cb] mt-4">Non-work tasks grew from 53% to over 72% in one year.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- SECTION 5: DEEPER DIVE INTO USE CASES -->
+    <section id="use-cases" class="min-h-screen flex flex-col justify-center py-12 px-4 sm:px-6">
+        <div class="text-center reveal">
+            <h2 class="text-3xl font-bold leading-tight tracking-tight">A Deeper Dive Into Use Cases</h2>
+            <p class="text-base font-normal leading-relaxed text-[#90a4cb] max-w-3xl mx-auto mt-4">Writing assistance and information seeking dominate, but a wide range of niche activities showcases the platform's versatility.</p>
+        </div>
+        <div class="w-full max-w-6xl mx-auto mt-12 reveal">
+            <div class="flex overflow-x-auto [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden pl-4 pb-8">
+                <div id="use-case-tabs" class="flex items-stretch gap-4">
+                    <!-- Tabs will be inserted by JS -->
+                </div>
+            </div>
+            <div id="use-case-content" class="px-4 space-y-12 pb-12 mt-4 min-h-[350px]">
+                <!-- Content will be inserted by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: MATURING USER & IMPACT OF INNOVATION -->
+    <section id="maturing-user" class="min-h-screen flex flex-col justify-center py-12 px-4 sm:px-6 bg-[#101d23]">
+      <div class="max-w-4xl mx-auto w-full">
+        <div class="text-center reveal">
+            <h3 class="text-white text-3xl font-bold leading-tight">The Plateau and The Peaks</h3>
+            <p class="text-[#90b7cb] text-base font-normal leading-relaxed pb-8 max-w-3xl mx-auto mt-4">While long-term user engagement has stabilized, new user acquisition and major model launches continue to drive overall platform expansion.</p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8 mt-8">
+            <div class="bg-[#1a2c3a] rounded-2xl p-6 reveal" style="transition-delay: 0.2s;">
+                <p class="text-[#90b7cb] text-sm font-medium leading-normal">Long-term User Daily Messages</p>
+                <p class="text-white text-lg font-bold">Plateaued for 3 months since June 2025</p>
+                <div class="relative h-[200px] mt-4">
+                    <svg class="absolute inset-0 w-full h-full" fill="none" preserveAspectRatio="none" viewBox="0 0 472 150" xmlns="http://www.w3.org/2000/svg">
+                        <path class="chart-line" d="M0 109C18.1538 109 18.1538 21 36.3077 21C54.4615 21 54.4615 41 72.6154 41C90.7692 41 90.7692 93 108.923 93C127.077 93 127.077 33 145.231 33C163.385 33 163.385 101 181.538 101C199.692 101 199.692 61 217.846 61C236 61 236 45 254.154 45C272.308 45 272.308 121 290.462 121C308.615 121 308.615 149 326.769 149C344.923 149 344.923 129 363.077 129C381.231 129 381.231 129 399.385 129C417.538 129 417.538 129 435.692 129C453.846 129 453.846 129 472 129" stroke="#0da6f2" stroke-linecap="round" stroke-width="3"></path>
+                    </svg>
+                    <div class="absolute inset-x-0 bottom-0 flex justify-around"><p class="text-[#90b7cb] text-[13px]">Apr '25</p><p class="text-[#90b7cb] text-[13px]">May</p><p class="text-[#90b7cb] text-[13px]">Jun</p><p class="text-[#90b7cb] text-[13px]">Jul</p><p class="text-[#90b7cb] text-[13px]">Aug</p></div>
+                </div>
+            </div>
+            <div class="reveal" style="transition-delay: 0.4s;">
+                <h3 class="text-white text-xl font-bold text-center mb-4">Growth Spikes from New Models</h3>
+                <div class="relative">
+                    <div class="absolute left-5 top-0 h-full w-px bg-[#315668]"></div>
+                    <div class="timeline-item reveal relative pl-12 pb-8" style="--i: 1;">
+                        <div class="absolute left-0 top-0 pt-1">
+                          <div class="w-10 h-10 rounded-full bg-[#0da6f2] flex items-center justify-center ring-4 ring-[#101d23]">
+                            <span class="material-symbols-outlined text-white">rocket_launch</span>
+                          </div>
+                        </div>
+                        <div class="pt-2"><p class="text-white text-lg font-bold">o1-preview & o1-mini</p><p class="text-[#00ff85] text-base font-medium">Significant per-user growth (Sep-Dec '24)</p></div>
+                    </div>
+                    <div class="timeline-item reveal relative pl-12 pb-8" style="--i: 2;">
+                        <div class="absolute left-0 top-0 pt-1">
+                          <div class="w-10 h-10 rounded-full bg-[#00c49f] flex items-center justify-center ring-4 ring-[#101d23]">
+                             <span class="material-symbols-outlined text-white">rocket_launch</span>
+                          </div>
+                        </div>
+                        <div class="pt-2"><p class="text-white text-lg font-bold">o3 & o4-mini</p><p class="text-[#00ff85] text-base font-medium">Significant per-user growth (Apr-Jun '25)</p></div>
+                    </div>
+                     <div class="timeline-item reveal relative pl-12" style="--i: 3;">
+                        <div class="absolute left-0 top-0 pt-1">
+                          <div class="w-10 h-10 rounded-full bg-[#f8007a] flex items-center justify-center ring-4 ring-[#101d23]">
+                             <span class="material-symbols-outlined text-white">new_releases</span>
+                          </div>
+                        </div>
+                        <div class="pt-2"><p class="text-white text-lg font-bold">Future Models</p><p class="text-[#90b7cb] text-base font-medium">Innovation continues to drive adoption.</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </section>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // --- Intersection Observer for animations ---
+    const revealElements = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    revealElements.forEach(el => {
+        observer.observe(el);
+    });
+
+    // --- Section 3: Gender Demographics Slider ---
+    const genderSlider = document.getElementById('gender-slider');
+    const malePercentEl = document.getElementById('male-percent');
+    const femalePercentEl = document.getElementById('female-percent');
+    const timeLabelEl = document.getElementById('time-label');
+    const genderPieEl = document.getElementById('gender-pie');
+
+    const genderData = [
+        { label: "Launch (Late '22)", male: 80, female: 20 },
+        { label: "Jan '24", male: 63, female: 37 },
+        { label: "Late '25", male: 47.6, female: 52.4 }
+    ];
+
+    function updateGenderUI(index) {
+        const data = genderData[index];
+        timeLabelEl.textContent = data.label;
+        malePercentEl.textContent = `${data.male}%`;
+        femalePercentEl.textContent = `${data.female}%`;
+        genderPieEl.style.background = `conic-gradient(from 180deg, var(--female-color) ${data.female}%, var(--male-color) ${data.female}%)`;
+    }
+
+    genderSlider.addEventListener('input', (e) => {
+        updateGenderUI(e.target.value);
+    });
+    // Initial call
+    updateGenderUI(genderSlider.value);
+
+
+    // --- Section 5: Interactive Use Cases ---
+    const useCaseTabsContainer = document.getElementById('use-case-tabs');
+    const useCaseContentContainer = document.getElementById('use-case-content');
+
+    const useCasesData = [
+        {
+            title: "Writing Assistance",
+            icon: "edit_note",
+            percentage: 28,
+            generalUsage: 28,
+            workUsage: 42,
+            description: "28% of all conversations involved writing help. This rises to 42% for work-related chats and 52% for management occupations.",
+            subpoints: {
+                "Edit or Critique Text": "10.6%",
+                "Personal Writing": "8%",
+                "Translation": "4.5%",
+            }
+        },
+        {
+            title: "Seeking Information",
+            icon: "search",
+            percentage: 24.4,
+            generalUsage: 24.4,
+            workUsage: 13.5,
+            description: "Rising from 14% to 24.4% in a year, this use case now slightly surpasses writing, though it's less common in work contexts.",
+        },
+        {
+            title: "Decision Support",
+            icon: "rule",
+            percentage: 14.9,
+            generalUsage: 10, // Assumed for visualization
+            workUsage: 14.9,
+            description: "Nearly 15% of work-related conversations deal with making decisions and solving problems, a key function in professional settings.",
+        },
+        {
+            title: "Creative & Niche",
+            icon: "palette",
+            percentage: 6,
+            generalUsage: 6,
+            workUsage: 4, // Assumed
+            description: "Less common but significant uses include Multimedia (6%), Programming (4.2%), Creative Ideation (3.9%), and Math (3%).",
+        },
+        {
+            title: "Personal & Social",
+            icon: "self_improvement",
+            percentage: 1.9,
+            generalUsage: 1.9,
+            workUsage: 1, // Assumed
+            description: "A small but important fraction of use involves relationships, personal reflection (1.9%), and even games or roleplay (0.4%).",
+        }
+    ];
+    
+    function renderUseCases() {
+        // Create tabs
+        useCasesData.forEach((useCase, index) => {
+            const tab = document.createElement('div');
+            tab.className = `use-case-card flex h-full flex-1 flex-col gap-3 rounded-xl min-w-48 bg-[#1a2c3a] p-4 ${index === 0 ? 'active' : ''}`;
+            tab.dataset.index = index;
+            tab.innerHTML = `
+                <div class="flex-shrink-0 flex items-center justify-center h-24 bg-[#101d23] rounded-lg">
+                    <span class="material-symbols-outlined text-5xl" style="color: var(--electric-blue);">${useCase.icon}</span>
+                </div>
+                <p class="text-white text-lg font-bold">${useCase.title}</p>
+            `;
+            useCaseTabsContainer.appendChild(tab);
+        });
+
+        // Set up click listeners
+        const tabs = document.querySelectorAll('.use-case-card');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                renderUseCaseContent(tab.dataset.index);
+            });
+        });
+
+        // Initial content render
+        renderUseCaseContent(0);
+    }
+
+    function renderUseCaseContent(index) {
+        const data = useCasesData[index];
+        useCaseContentContainer.innerHTML = `
+            <div class="flex flex-col gap-6">
+                <div>
+                    <p class="text-white text-2xl font-bold">${data.title}</p>
+                    <p class="text-[var(--electric-blue)] text-5xl font-bold tracking-tighter">${data.percentage}%</p>
+                    <p class="text-gray-400 text-sm">of relevant conversations</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="grid grid-cols-[auto_1fr] items-center gap-x-3">
+                        <p class="text-gray-400 text-xs font-bold uppercase tracking-wider">General</p>
+                        <div class="bg-gray-700 rounded-full h-3">
+                            <div class="bg-[var(--electric-blue)] h-3 rounded-full" style="width: ${data.generalUsage}%;"></div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-[auto_1fr] items-center gap-x-3">
+                        <p class="text-gray-400 text-xs font-bold uppercase tracking-wider">Work</p>
+                        <div class="bg-gray-700 rounded-full h-3">
+                            <div class="bg-[var(--magenta)] h-3 rounded-full" style="width: ${data.workUsage}%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-gray-300 text-base leading-relaxed">${data.description}</p>
+            </div>
+        `;
+    }
+
+    renderUseCases();
+});
+</script>
+</body>
+</html>
